@@ -1,0 +1,4 @@
+name: data-an
+channels:
+  - conda-forge
+prefix: /opt/homebrew/Caskroom/miniforge/base/envs/data-an
