@@ -60,3 +60,11 @@ Cannot install environment.yaml | Make sure you have activated conda
 <br>
 
 ## References
+
+<br>
+
+## License & copyright
+
+© Frank Jimenez
+
+Licensed under the [MIT Licence](LICENSE).
