@@ -1,11 +1,15 @@
 # Twitsa
 
-<img src="https://i.ibb.co/VB5Pbdr/after.png" width="300">
-
-
 Twitsa app allows users to easily scrape public Tweets off Twitter and give an in depth sentiment analysis of the extracted data.
 
 The provided Jupyter Notebook allows users to search for specific public tweets, scrape them off Twitter and clean the extracted tweets to use them sentiment analysis. 
+
+<br>
+
+<img src="https://i.ibb.co/VB5Pbdr/after.png" width="300">
+
+<br>
+<br>
 
 * [Getting Started](#getting-started)
 * [Methods](#methods)
