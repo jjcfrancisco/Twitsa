@@ -1,6 +1,6 @@
 # Twitsa
 
-![](https://i.ibb.co/VB5Pbdr/after.png)
+![](https://i.ibb.co/VB5Pbdr/after.png){{height="36px" width="36px" }
 
 
 Twitsa app allows users to easily scrape public Tweets off Twitter and give an in depth sentiment analysis of the extracted data.
