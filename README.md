@@ -1,4 +1,9 @@
-# Twitter sentiment analysis
+# Twitsa
+
+![](https://i.ibb.co/VB5Pbdr/after.png)
+
+
+Twitsa app allows users to easily scrape public Tweets off Twitter and give an in depth sentiment analysis of the extracted data.
 
 The provided Jupyter Notebook allows users to search for specific public tweets, scrape them off Twitter and clean the extracted tweets to use them sentiment analysis. 
 
@@ -10,7 +15,7 @@ The provided Jupyter Notebook allows users to search for specific public tweets,
 <br>
 
 ## Getting Started
-The [Jupyter Notebook](https://jupyter.org/install) is written in Python using [mini-forge](https://conda-forge.org/) via Homebrew and the main packages used are Selenium for scraping and and Pandas for manipulating data. This notebook was developed using an Apple laptop with the M1 chip and some Python libraries are simply not available using Conda package manager. Please note, the provided YML file installs libraries using both Conda and Pip.
+Twitsa requires Python 3 installed as well as the chrome webdriver - the latter can be easily downloaded from the [Chrome website](https://chromedriver.chromium.org/downloads). The app is written in Python using [mini-forge](https://conda-forge.org/) via Homebrew and the main packages used are Selenium for scraping and and Pandas for manipulating data. This app was developed using an Apple laptop with the M1 chip and some Python libraries are simply not available using Conda package manager. Please note, the provided YML file installs libraries using both Conda and Pip.
 
 To use the Twitter Sentiment Analysis notebook follow the next steps:
 
@@ -56,6 +61,7 @@ The notebook should output:
 Symptoms | Possible Solutions
 --------- | ------------------
 Cannot install environment.yaml | Make sure you have activated conda
+PermissionError: [Errno 13] Permission denied | Make sure the chrome webdriver is inside the app folder
 
 <br>
 

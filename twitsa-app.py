@@ -253,22 +253,27 @@ def clickGo():
     resultsBanner.grid(row=9, columns=1, columnspan=2, pady=20)
 
     results1 = tk.Label(root, text=results[0])
-    results1.grid(row=10, columns=0, columnspan=2)
+    results1.grid(row=10, columns=1, columnspan=2, padx=25)
 
     results2 = tk.Label(root, text=results[1])
-    results2.grid(row=11, columns=0, columnspan=2)
+    results2.grid(row=11, columns=1, columnspan=2, padx=25)
 
     results3 = tk.Label(root, text=results[2])
-    results3.grid(row=12, columns=0, columnspan=2)
+    results3.grid(row=12, columns=1, columnspan=2, padx=25)
 
     results4 = tk.Label(root, text=results[3])
-    results4.grid(row=13, columns=0, columnspan=2, pady=(0, 20))
+    results4.grid(row=13, columns=1, columnspan=2, padx=25, pady=(0, 20))
+
+    note = tk.Label(root, text="**Additional two graphs and a CSV file have been created in the root folder.")
+    note.grid(row=14, columns=1, columnspan=2, padx=25, pady=(0, 20))    
 
     resultsBanner.config(font=("Georgia", 20, "bold"))
     results1.config(font=("Georgia", 15))
     results2.config(font=("Georgia", 15))
     results3.config(font=("Georgia", 15))
     results4.config(font=("Georgia", 15))
+    note.config(font=("Georgia", 15, "italic"))
+
 
 
 root = tk.Tk()
@@ -305,6 +310,9 @@ kmEntry.grid(row=6, column=1)
 button = tk.Button(root, text="Go", command=clickGo)
 button.grid(row=7, column=0, columnspan=2, pady=20)
 
+cr = tk.Label(root, text="App created by Frank Jimenez | " + str(datetime.now().year))
+cr.grid(row=15, column=0, columnspan=2, pady=20)
+
 logoLabel.config(font=("Georgia", 44))
 introLabel.config(font=("Georgia", 15))
 optionsLabel.config(font=("Georgia", 15))
@@ -313,5 +321,6 @@ latLabel.config(font=("Georgia", 13, "bold"))
 lonLabel.config(font=("Georgia", 13, "bold"))
 kmLabel.config(font=("Georgia", 13, "bold"))
 button.config(font=("Georgia", 20, "bold"))
+cr.config(font=("Georgia", 11, "bold"))
 
 root.mainloop()
