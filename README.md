@@ -1,6 +1,6 @@
 # Twitssa
 
-Twitssa is a Twitter Scrapper Sentiment Analysis app that searches a given word on Twitter and gives an in depth sentiment analysis.
+Twitssa is a <b>Twit</b>ter <b>S</b>crapper <b>S</b>entiment <b>A</b>nalysis app that searches a given word on Twitter and gives an in depth sentiment analysis.
 
 The provided Jupyter Notebook allows users to search for specific public tweets, scrape them off Twitter and clean the extracted tweets to use them sentiment analysis.
 
@@ -19,13 +19,15 @@ The provided Jupyter Notebook allows users to search for specific public tweets,
 <br>
 
 ## Getting Started
-Twitssa requires Python 3 installed as well as the chrome webdriver - the latter can be easily downloaded from the [Chrome website](https://chromedriver.chromium.org/downloads). The app is written in Python using [mini-forge](https://conda-forge.org/) via Homebrew and the main packages used are Selenium for scraping and and Pandas for manipulating data. This app was developed using an Apple laptop with the M1 chip and some Python libraries are simply not available using Conda package manager. Please note, the provided YML file installs libraries using both Conda and Pip.
-
-To use Twitssa follow the next steps:
+Twitssa requires Python 3 installed as well as the chrome webdriver - the latter can be easily downloaded from the [Chrome website](https://chromedriver.chromium.org/downloads). The app is written in Python using [mini-forge](https://conda-forge.org/) via Homebrew and the main packages used are Selenium for scraping, Pandas for manipulating data and Tkinter for creating the GUI. This app was developed using an Apple laptop with the M1 chip and some Python libraries are simply not available using the Conda package manager. Please note, the provided YAML file installs libraries using both Conda and Pip.
 
 <br>
 
-* From the terminal, create a new directory and clone the GitHub repository:
+To use Twitssa follow the next steps in the terminal:
+
+<br>
+
+* Create a new directory and clone the GitHub repository:
 
 ```bash
 mkdir twitssa && cd twitssa && git clone https://github.com/jjcfrank/twitter-sentiment-analysis.git
@@ -41,6 +43,16 @@ conda env update -n [name_environment] --file environment.yaml
 
 ```bash
 conda env update -n base --file environment.yaml
+```
+
+* Activate the Conda environment
+
+```bash
+conda activate [name_environment]
+```
+* Launch Twitssa
+```bash
+python3 twitssa.py
 ```
 
 <br>
