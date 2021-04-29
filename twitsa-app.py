@@ -15,6 +15,7 @@ from time import sleep
 import re
 
 import tkinter as tk
+import geocoder
 
 #Main function that calls the application
 def main(word, lang, lat, lon, km):
@@ -240,32 +241,44 @@ def main(word, lang, lat, lon, km):
 ####################
 
 def clickGo():
-    global wordEntry, latEntry, lonEntry, kmEntry
+    global wordEntry, kmEntry, latlonEntry
     processing = tk.Label(root, text="Processing...")
-    processing.grid(row=8, columns=1, columnspan=2, pady=(0, 20))
+    processing.grid(row=7, columns=1, columnspan=2, pady=(0, 20))
     root.update()
 
-    results = main(wordEntry.get(), "lang:en", float(latEntry.get()), float(lonEntry.get()), float(kmEntry.get()))
+    print(latlonEntry.get())
+
+    def tidyLocation():
+        #global latlonEntry
+        entry = latlonEntry.get()
+        entry = entry.replace(' ', '')
+        entry = entry.split(',')
+        lat = float(entry[0])
+        lon = float(entry[1])
+        return lat, lon
+
+    results = main(wordEntry.get(), "lang:en", tidyLocation()[0], tidyLocation()[1], float(kmEntry.get()))
+
 
     processing.destroy()
 
     resultsBanner = tk.Label(root, text="#### The Results: ####")
-    resultsBanner.grid(row=9, columns=1, columnspan=2, pady=20)
+    resultsBanner.grid(row=8, columns=1, columnspan=2, pady=20)
 
     results1 = tk.Label(root, text=results[0])
-    results1.grid(row=10, columns=1, columnspan=2, padx=25)
+    results1.grid(row=9, columns=1, columnspan=2, padx=25)
 
     results2 = tk.Label(root, text=results[1])
-    results2.grid(row=11, columns=1, columnspan=2, padx=25)
+    results2.grid(row=10, columns=1, columnspan=2, padx=25)
 
     results3 = tk.Label(root, text=results[2])
-    results3.grid(row=12, columns=1, columnspan=2, padx=25)
+    results3.grid(row=11, columns=1, columnspan=2, padx=25)
 
     results4 = tk.Label(root, text=results[3])
-    results4.grid(row=13, columns=1, columnspan=2, padx=25, pady=(0, 20))
+    results4.grid(row=12, columns=1, columnspan=2, padx=25, pady=(0, 20))
 
     note = tk.Label(root, text="**Additional two graphs and a CSV file have been created in the root folder.")
-    note.grid(row=14, columns=1, columnspan=2, padx=25, pady=(0, 20))    
+    note.grid(row=13, columns=1, columnspan=2, padx=25, pady=(0, 20))    
 
     resultsBanner.config(font=("Georgia", 20, "bold"))
     results1.config(font=("Georgia", 15))
@@ -274,53 +287,69 @@ def clickGo():
     results4.config(font=("Georgia", 15))
     note.config(font=("Georgia", 15, "italic"))
 
-
+def getLocation():
+    g = geocoder.ip('me')
+    latlon = g.latlng
+    lat = latlon[0]
+    lon = latlon[1]
+    latlonStr = str(lat) + ', ' + str(lon)
+    return latlonStr
 
 root = tk.Tk()
 root.title("Twitsa")
 #root.geometry("800x600")
 
 logoLabel = tk.Label(root, text="Twitsa")
+logoLabel.grid(row=0, column=0, pady=5, columnspan=2)
+logoLabel.config(font=("Georgia", 44))
+
 introLabel = tk.Label(root, text="Twitsa app searches a given word on Twitter and \n gives an in depth sentiment analysis.")
+introLabel.grid(row=1, column=0, columnspan=2, pady=(0, 20))
+introLabel.config(font=("Georgia", 15))
+
 optionsLabel = tk.Label(root, text="Please note:\n Only enter one word and only \n use coordinates in decimal degrees.")
+optionsLabel.grid(row=2, column=0, columnspan=2, pady=(0, 20))
+optionsLabel.config(font=("Georgia", 15))
 
 wordLabel = tk.Label(root, text="Word:")
-wordEntry = tk.Entry(root)
-latLabel = tk.Label(root, text="Latitude:")
-latEntry = tk.Entry(root)
-lonLabel = tk.Label(root, text="Longitude:")
-lonEntry = tk.Entry(root)
-kmLabel = tk.Label(root, text="Distance in Km:")
-kmEntry = tk.Entry(root)
-
-logoLabel.grid(row=0, column=0, pady=5, columnspan=2)
-introLabel.grid(row=1, column=0, columnspan=2, pady=(0, 20))
-optionsLabel.grid(row=2, column=0, columnspan=2, pady=(0, 20))
-
 wordLabel.grid(row=3, column=0)
+wordLabel.config(font=("Georgia", 13, "bold"))
+wordEntry = tk.Entry(root)
 wordEntry.grid(row=3, column=1)
 wordEntry.focus_set()
+'''
+latLabel = tk.Label(root, text="Latitude:")
 latLabel.grid(row=4, column=0)
+latLabel.config(font=("Georgia", 13, "bold"))
+latEntry = tk.Entry(root)
 latEntry.grid(row=4, column=1)
+latEntry.insert(0,getLocation())
+
+lonLabel = tk.Label(root, text="Longitude:")
 lonLabel.grid(row=5, column=0)
+lonLabel.config(font=("Georgia", 13, "bold"))
+lonEntry = tk.Entry(root)
 lonEntry.grid(row=5, column=1)
-kmLabel.grid(row=6, column=0)
-kmEntry.grid(row=6, column=1)
+'''
+latlonLabel = tk.Label(root, text="Latitude:")
+latlonLabel.grid(row=4, column=0)
+latlonLabel.config(font=("Georgia", 13, "bold"))
+latlonEntry = tk.Entry(root)
+latlonEntry.grid(row=4, column=1)
+latlonEntry.insert(0, getLocation())
+
+kmLabel = tk.Label(root, text="Distance in Km:")
+kmLabel.grid(row=5, column=0)
+kmLabel.config(font=("Georgia", 13, "bold"))
+kmEntry = tk.Entry(root)
+kmEntry.grid(row=5, column=1)
 
 button = tk.Button(root, text="Go", command=clickGo)
-button.grid(row=7, column=0, columnspan=2, pady=20)
+button.grid(row=6, column=0, columnspan=2, pady=20)
+button.config(font=("Georgia", 20, "bold"))
 
 cr = tk.Label(root, text="App created by Frank Jimenez | " + str(datetime.now().year))
-cr.grid(row=15, column=0, columnspan=2, pady=20)
-
-logoLabel.config(font=("Georgia", 44))
-introLabel.config(font=("Georgia", 15))
-optionsLabel.config(font=("Georgia", 15))
-wordLabel.config(font=("Georgia", 13, "bold"))
-latLabel.config(font=("Georgia", 13, "bold"))
-lonLabel.config(font=("Georgia", 13, "bold"))
-kmLabel.config(font=("Georgia", 13, "bold"))
-button.config(font=("Georgia", 20, "bold"))
+cr.grid(row=14, column=0, columnspan=2, pady=20)
 cr.config(font=("Georgia", 11, "bold"))
 
 root.mainloop()
