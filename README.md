@@ -6,7 +6,7 @@ The provided Jupyter Notebook allows users to search for specific public tweets,
 
 <br>
 
-![](examples/exampleTwitsa.gif)
+![](examples/exampleTwitssa.gif)
 
 <br>
 <br>
