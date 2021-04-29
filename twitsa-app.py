@@ -15,6 +15,7 @@ from time import sleep
 import re
 
 import tkinter as tk
+from tkinter import DISABLED, NORMAL, END, W, LEFT
 import geocoder
 
 #Main function that calls the application
@@ -238,18 +239,41 @@ def main(word, lang, lat, lon, km):
 
     return [numberOfTweets, postwtperc, neutwtperc, negtwtperc]
 
-####################
+### Below the Tkinter code ###
 
+#Placeholder #1: focus out
+def focus_out_value_box(widget, widget_text):
+    if widget['fg'] == 'Black' and len(widget.get()) == 0:
+        widget.delete(0, END)
+        widget['fg'] = 'Grey'
+        widget.insert(0, widget_text)
+
+#Placeholder #1: focus in
+def focus_in_value_box(widget):
+    if widget['fg'] == 'Grey':
+        widget['fg'] = 'Black'
+        widget.delete(0, END)
+
+#Obtains location using Geocoder
+def getLocation():
+    focus_in_value_box(latlonEntry)
+    g = geocoder.ip('me')
+    latlon = g.latlng
+    lat = latlon[0]
+    lon = latlon[1]
+    latlonStr = str(lat) + ', ' + str(lon)
+    latlonEntry.insert(0, latlonStr)
+
+#Main Tkinter function - activates the main()
 def clickGo():
     global wordEntry, kmEntry, latlonEntry
     processing = tk.Label(root, text="Processing...")
-    processing.grid(row=7, columns=1, columnspan=2, pady=(0, 20))
+    processing.grid(row=7, columns=3, pady=(0, 25))
+    processing.config(font=("Georgia", 20, 'italic'))
     root.update()
 
-    print(latlonEntry.get())
-
+    #Lat & lon are made float numbers again for main()
     def tidyLocation():
-        #global latlonEntry
         entry = latlonEntry.get()
         entry = entry.replace(' ', '')
         entry = entry.split(',')
@@ -257,99 +281,108 @@ def clickGo():
         lon = float(entry[1])
         return lat, lon
 
+    #Activator
     results = main(wordEntry.get(), "lang:en", tidyLocation()[0], tidyLocation()[1], float(kmEntry.get()))
 
-
+    #Destroys the 'Processing...' label
     processing.destroy()
 
-    resultsBanner = tk.Label(root, text="#### The Results: ####")
-    resultsBanner.grid(row=8, columns=1, columnspan=2, pady=20)
-
-    results1 = tk.Label(root, text=results[0])
-    results1.grid(row=9, columns=1, columnspan=2, padx=25)
-
-    results2 = tk.Label(root, text=results[1])
-    results2.grid(row=10, columns=1, columnspan=2, padx=25)
-
-    results3 = tk.Label(root, text=results[2])
-    results3.grid(row=11, columns=1, columnspan=2, padx=25)
-
-    results4 = tk.Label(root, text=results[3])
-    results4.grid(row=12, columns=1, columnspan=2, padx=25, pady=(0, 20))
-
-    note = tk.Label(root, text="**Additional two graphs and a CSV file have been created in the root folder.")
-    note.grid(row=13, columns=1, columnspan=2, padx=25, pady=(0, 20))    
-
+    #Results box #1: header
+    resultsBanner = tk.Label(root, text="#### Results: ####")
+    resultsBanner.grid(row=8, columns=3, pady=(0, 20))
     resultsBanner.config(font=("Georgia", 20, "bold"))
+
+    #Results box #2: amount of tweets collected
+    results1 = tk.Label(root, text=results[0])
+    results1.grid(row=9, columns=3, pady=(0, 7))
     results1.config(font=("Georgia", 15))
+
+    #Results box #3: positive results
+    results2 = tk.Label(root, text=results[1])
+    results2.grid(row=10, columns=3, pady=(0, 7))
     results2.config(font=("Georgia", 15))
+
+    #Results box #4: neutral results
+    results3 = tk.Label(root, text=results[2])
+    results3.grid(row=11, columns=3, pady=(0, 7))
     results3.config(font=("Georgia", 15))
+
+    #Results box #5: negative results 
+    results4 = tk.Label(root, text=results[3])
+    results4.grid(row=12, columns=3, pady=(0, 15))
     results4.config(font=("Georgia", 15))
-    note.config(font=("Georgia", 15, "italic"))
 
-def getLocation():
-    g = geocoder.ip('me')
-    latlon = g.latlng
-    lat = latlon[0]
-    lon = latlon[1]
-    latlonStr = str(lat) + ', ' + str(lon)
-    return latlonStr
+    #Results box #7: important note of created files
+    note = tk.Label(root, text="**Additional two graphs and a CSV file \n have been created in the root folder.")
+    note.grid(row=13, columns=3, pady=(0, 7))    
+    note.config(font=("Georgia", 15, "italic"))  
 
+#Creates frame & title
 root = tk.Tk()
-root.title("Twitsa")
-#root.geometry("800x600")
+root.title("Twitssa")
 
-logoLabel = tk.Label(root, text="Twitsa")
-logoLabel.grid(row=0, column=0, pady=5, columnspan=2)
+#Twitssa Logo
+logoLabel = tk.Label(root, text="Twitssa")
+logoLabel.grid(row=0, column=1, pady=(0, 20))
 logoLabel.config(font=("Georgia", 44))
 
-introLabel = tk.Label(root, text="Twitsa app searches a given word on Twitter and \n gives an in depth sentiment analysis.")
-introLabel.grid(row=1, column=0, columnspan=2, pady=(0, 20))
+#Intro label
+introLabel = tk.Label(root, text="Twitssa is a Twitter Scrapper Sentiment Analysis app \n that searches a given word on Twitter and gives an \n in depth sentiment analysis.")
+introLabel.grid(row=1, column=1,  pady=(0, 10))
 introLabel.config(font=("Georgia", 15))
 
-optionsLabel = tk.Label(root, text="Please note:\n Only enter one word and only \n use coordinates in decimal degrees.")
-optionsLabel.grid(row=2, column=0, columnspan=2, pady=(0, 20))
+#Options label
+optionsLabel = tk.Label(root, text="Please note:\n * For better results only enter one word \n * Use coordinates in decimal degrees \n * Distance is measured in km radius")
+optionsLabel.grid(row=2, column=1,  pady=(0, 30))
 optionsLabel.config(font=("Georgia", 15))
 
+#Word label & entry
 wordLabel = tk.Label(root, text="Word:")
 wordLabel.grid(row=3, column=0)
 wordLabel.config(font=("Georgia", 13, "bold"))
-wordEntry = tk.Entry(root)
+wordEntryText = 'Latinx'
+wordEntry = tk.Entry(font=("Proxima Nova", 12, "italic"), fg='Grey')
+wordEntry.insert(0, wordEntryText)
+wordEntry.bind("<FocusIn>", lambda args: focus_in_value_box(wordEntry))
+wordEntry.bind("<FocusOut>", lambda args: focus_out_value_box(wordEntry, wordEntryText))
 wordEntry.grid(row=3, column=1)
-wordEntry.focus_set()
-'''
-latLabel = tk.Label(root, text="Latitude:")
-latLabel.grid(row=4, column=0)
-latLabel.config(font=("Georgia", 13, "bold"))
-latEntry = tk.Entry(root)
-latEntry.grid(row=4, column=1)
-latEntry.insert(0,getLocation())
 
-lonLabel = tk.Label(root, text="Longitude:")
-lonLabel.grid(row=5, column=0)
-lonLabel.config(font=("Georgia", 13, "bold"))
-lonEntry = tk.Entry(root)
-lonEntry.grid(row=5, column=1)
-'''
-latlonLabel = tk.Label(root, text="Latitude:")
+#Latlon label & entry
+latlonLabel = tk.Label(root, text="Location (lat & lon):")
 latlonLabel.grid(row=4, column=0)
 latlonLabel.config(font=("Georgia", 13, "bold"))
-latlonEntry = tk.Entry(root)
+latlonEntryText = '54.597271, -5.930110'
+latlonEntry = tk.Entry(font=("Proxima Nova", 12, "italic"), fg='Grey')
+latlonEntry.insert(0, latlonEntryText)
+latlonEntry.bind("<FocusIn>", lambda args: focus_in_value_box(latlonEntry))
+latlonEntry.bind("<FocusOut>", lambda args: focus_out_value_box(latlonEntry, latlonEntryText))
 latlonEntry.grid(row=4, column=1)
-latlonEntry.insert(0, getLocation())
 
-kmLabel = tk.Label(root, text="Distance in Km:")
+#Button 'get your location'
+buttonGeo = tk.Button(root, text="Get your location", command=getLocation)
+buttonGeo.grid(row=4, column=2)
+buttonGeo.config(font=("Georgia", 13, "bold"))
+
+#Distance label & entry
+kmLabel = tk.Label(root, text="Distance (km):")
 kmLabel.grid(row=5, column=0)
 kmLabel.config(font=("Georgia", 13, "bold"))
-kmEntry = tk.Entry(root)
+kmLabelText = '20'
+kmEntry = tk.Entry(font=("Proxima Nova", 12, "italic"), fg='Grey')
+kmEntry.insert(0, kmLabelText)
+kmEntry.bind("<FocusIn>", lambda args: focus_in_value_box(kmEntry))
+kmEntry.bind("<FocusOut>", lambda args: focus_out_value_box(kmEntry, kmLabelText))
 kmEntry.grid(row=5, column=1)
 
-button = tk.Button(root, text="Go", command=clickGo)
-button.grid(row=6, column=0, columnspan=2, pady=20)
-button.config(font=("Georgia", 20, "bold"))
+#Button 'Go'
+buttonGo = tk.Button(root, text="Go", command=clickGo, width=8)
+buttonGo.grid(row=6, column=1, pady=(25, 25))
+buttonGo.config(font=("Georgia", 20, "bold"))
 
+#Copyright label
 cr = tk.Label(root, text="App created by Frank Jimenez | " + str(datetime.now().year))
-cr.grid(row=14, column=0, columnspan=2, pady=20)
+cr.grid(row=14, column=1, pady=(30, 0))
 cr.config(font=("Georgia", 11, "bold"))
 
+#Main loop
 root.mainloop()
