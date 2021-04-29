@@ -3,20 +3,19 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
-
 import pandas as pd
 from textblob import TextBlob
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-
 import time
 from datetime import datetime, date
 from time import sleep
 import re
-
 import tkinter as tk
 from tkinter import DISABLED, NORMAL, END, W, LEFT
 import geocoder
+
+### Below the app engine ###
 
 #Main function that calls the application
 def main(word, lang, lat, lon, km):
@@ -32,9 +31,8 @@ def main(word, lang, lat, lon, km):
     #Searches for Twitter search bar using xpath
     search_input = driver.find_element_by_xpath('//input[@aria-label="Search query"]')
 
-    #User inputs
+    #User inputs & press return
     search_input.send_keys(word + ' ' + lang + ' ' + 'geocode:' + str(lat) + ',' + str(lon) + ',' + str(km) + 'km')
-
     search_input.send_keys(Keys.RETURN)
     sleep(10)
 
@@ -51,7 +49,7 @@ def main(word, lang, lat, lon, km):
         #Extracts tweet from the element
         username = card.find_element_by_xpath('.//span').text
         
-        
+        #Checks if there is any or more cards & postdate
         try:
             handle = card.find_element_by_xpath('.//span[contains(text(), "@")]').text
         except NoSuchElementException:
@@ -62,6 +60,7 @@ def main(word, lang, lat, lon, km):
         except NoSuchElementException:
             return
         
+        #HTML locations
         comment = card.find_element_by_xpath('.//div[2]/div[2]/div[1]').text
         responding = card.find_element_by_xpath('.//div[2]/div[2]/div[2]').text
         text = comment + ' ' + responding
@@ -69,9 +68,7 @@ def main(word, lang, lat, lon, km):
         retweet_cnt = card.find_element_by_xpath('.//div[@data-testid="retweet"]').text
         like_cnt = card.find_element_by_xpath('.//div[@data-testid="like"]').text
         
-        # get a string of all emojis contained in the tweet
-        """Emojis are stored as images... so I convert the filename, which is stored as unicode, into 
-        the emoji character."""
+        #Get emojis
         emoji_tags = card.find_elements_by_xpath('.//img[contains(@src, "emoji")]')
         emoji_list = []
         for tag in emoji_tags:
@@ -87,6 +84,7 @@ def main(word, lang, lat, lon, km):
         tweet = (username, handle, postdate, text, emojis, reply_cnt, retweet_cnt, like_cnt)
         return tweet
 
+    #Scroller
     while scrolling:
         page_cards = driver.find_elements_by_xpath('//div[@data-testid="tweet"]')
         for card in page_cards[-15:]:
@@ -119,6 +117,7 @@ def main(word, lang, lat, lon, km):
     # close the web driver
     driver.close()
 
+    #Tidies raw tweet data
     def cleanTweets1():
         tweetList = []
         for i in data:
@@ -129,6 +128,7 @@ def main(word, lang, lat, lon, km):
 
     df = cleanTweets1()
 
+    #Prepares tweets for sentiment analysis
     def cleanTweets2(text):
         text = re.sub(r'#', ' ', text)
         text = re.sub(r'\n', ' ', text)
@@ -173,10 +173,11 @@ def main(word, lang, lat, lon, km):
 
     df['analysis'] = df['polarity'].apply(getAnalysis)
 
+    #The analysed word
     df['word'] = word
 
+    #Visual representation #1: strength of words scrapped using WordCloud library
     def getWordCloud():
-        #A visual representation #1: strength of words scrapped using WordCloud library
         everyWord = ' '.join([tweets for tweets in df['message']])
         wordCloud = WordCloud(width= 500, height = 300, random_state = 21, max_font_size = 110).generate(everyWord)
 
@@ -187,8 +188,8 @@ def main(word, lang, lat, lon, km):
 
     getWordCloud()
 
+    #Visual representation #2: observe subjectivity and polarity in a scatter plot
     def getSentPolFig():
-        #A visual representation #2: observe subjectivity and polarity in a scatter plot
         sentPolFig = plt.figure(figsize=(8,6))
         for i in range(0, df.shape[0]):
             plt.scatter(df['polarity'][i], df['subjectivity'][i], color='Blue')
@@ -200,8 +201,8 @@ def main(word, lang, lat, lon, km):
 
     getSentPolFig()
 
+    #Visual representation #3: bar plot of positive, negative and neutral tweets
     def getSentPercFig():
-        #A visual representation #3: bar plot of positive, negative and neutral tweets
         sentPerc = plt.figure(figsize=(8,6))
 
         plt.title('Sentiment Analysis')
@@ -212,8 +213,8 @@ def main(word, lang, lat, lon, km):
 
     getSentPercFig()
 
+    #Exports the df to CSV
     def getCsv():
-        #Exports the df to CSV
         now = datetime.now()
         timeNow = now.strftime("%d-%m-%Y %H:%M:%S")
         df.to_csv('twitter-sentiment-analysis' + ' - ' + timeNow + '.csv')
@@ -223,13 +224,10 @@ def main(word, lang, lat, lon, km):
     #Making descriptive stats of positive, negative and neutral tweets
     postweets = df[df.analysis == 'positive']
     postweets = postweets['message']
-
     neutweets = df[df.analysis == 'neutral']
     neutweets = neutweets['message']
-
     negtweets = df[df.analysis == 'negative']
     negtweets = negtweets['message']
-
     postwtperc = str(round((postweets.shape[0] / df.shape[0]) *100, 1)) + "% of people made positive comments about " + word
     neutwtperc = str(round((neutweets.shape[0] / df.shape[0]) *100, 1)) + "% of people made neutral comments about " + word
     negtwtperc = str(round((negtweets.shape[0] / df.shape[0]) *100, 1)) + "% of people made negative comments about " + word

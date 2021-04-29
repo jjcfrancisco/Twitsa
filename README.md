@@ -1,12 +1,12 @@
-# Twitsa
+# Twitssa
 
-Twitsa app allows users to easily scrape public Tweets off Twitter and give an in depth sentiment analysis of the extracted data.
+Twitssa is a Twitter Scrapper Sentiment Analysis app that searches a given word on Twitter and gives an in depth sentiment analysis.
 
 The provided Jupyter Notebook allows users to search for specific public tweets, scrape them off Twitter and clean the extracted tweets to use them sentiment analysis. 
 
 <br>
 
-<img src="https://i.ibb.co/VB5Pbdr/after.png" width="300">
+<img src="https://i.ibb.co/G229k37/after.png" width="300">
 
 <br>
 <br>
@@ -19,16 +19,16 @@ The provided Jupyter Notebook allows users to search for specific public tweets,
 <br>
 
 ## Getting Started
-Twitsa requires Python 3 installed as well as the chrome webdriver - the latter can be easily downloaded from the [Chrome website](https://chromedriver.chromium.org/downloads). The app is written in Python using [mini-forge](https://conda-forge.org/) via Homebrew and the main packages used are Selenium for scraping and and Pandas for manipulating data. This app was developed using an Apple laptop with the M1 chip and some Python libraries are simply not available using Conda package manager. Please note, the provided YML file installs libraries using both Conda and Pip.
+Twitssa requires Python 3 installed as well as the chrome webdriver - the latter can be easily downloaded from the [Chrome website](https://chromedriver.chromium.org/downloads). The app is written in Python using [mini-forge](https://conda-forge.org/) via Homebrew and the main packages used are Selenium for scraping and and Pandas for manipulating data. This app was developed using an Apple laptop with the M1 chip and some Python libraries are simply not available using Conda package manager. Please note, the provided YML file installs libraries using both Conda and Pip.
 
-To use the Twitter Sentiment Analysis notebook follow the next steps:
+To use Twitssa follow the next steps:
 
 <br>
 
-* From the terminal, clone the directory:
+* From the terminal, create a new directory and clone the GitHub repository:
 
 ```bash
-git clone https://github.com/jjcfrank/twitter-sentiment-analysis.git
+mkdir twitssa && cd twitssa && git clone https://github.com/jjcfrank/twitter-sentiment-analysis.git
 ```
 
 * Install the needed libraries by updating the environment. The code below creates a new Conda environment **(recommeded**).
@@ -50,12 +50,12 @@ conda env update -n base --file environment.yaml
 <br>
 
 ## Expected Output
-The notebook should output:
+After executing the app Twitssa should:
 <ol>
-<li>A scatter plot graph with the sentiment polarity and subjectivity from the scrapped tweets
-<li>A bar plot graph with the number of positive, negative and neutral tweets
-<li>A word cloud image with the most used words from the scrapped tweets
-<li>Percentages of positive, negative and neutral tweets in the form of a string
+<li>Display several descriptive statistics based on the used word</li>
+<li>Create in the root directory a scatter plot graph with the sentiment polarity and subjectivity from the scrapped tweets</li>
+<li>Create in the root directory a bar plot graph with the number of positive, negative and neutral tweets</li>
+<li>Create in the root directory a word cloud image with the most used words from the scrapped tweets</li>
 </ol>
 
 <br>
