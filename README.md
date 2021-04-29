@@ -53,7 +53,7 @@ conda env update -n base --file environment.yaml
 
 <br>
 
-<img src="https://i.ibb.co/G229k37/after.png" width="300">
+<img src="https://i.ibb.co/G229k37/after.png" width="400">
 
 <br>
 
