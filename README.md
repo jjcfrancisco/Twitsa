@@ -2,11 +2,11 @@
 
 Twitssa is a Twitter Scrapper Sentiment Analysis app that searches a given word on Twitter and gives an in depth sentiment analysis.
 
-The provided Jupyter Notebook allows users to search for specific public tweets, scrape them off Twitter and clean the extracted tweets to use them sentiment analysis. 
+The provided Jupyter Notebook allows users to search for specific public tweets, scrape them off Twitter and clean the extracted tweets to use them sentiment analysis.
 
 <br>
 
-<img src="https://i.ibb.co/G229k37/after.png" width="300">
+![](examples/exampleTwitsa.gif)
 
 <br>
 <br>
@@ -50,6 +50,13 @@ conda env update -n base --file environment.yaml
 <br>
 
 ## Expected Output
+
+<br>
+
+<img src="https://i.ibb.co/G229k37/after.png" width="300">
+
+<br>
+
 After executing the app Twitssa should:
 <ol>
 <li>Display several descriptive statistics based on the used word</li>
