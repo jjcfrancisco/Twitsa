@@ -71,19 +71,33 @@ Lastly, the Twitssa app contains code located at the end of the script that crea
 
 ## Expected Output
 
-<br>
 
-<img src="https://i.ibb.co/G229k37/after.png" width="400">
 
-<br>
-<br>
+
+![](examples/sentiment-percentage.png =100x20)
 
 After executing the app Twitssa should:
 <ol>
 <li>Display several descriptive statistics based on the used word</li>
+<br>
+<img src="https://i.ibb.co/G229k37/after.png" width="400">
+<br>
+<br>
 <li>Create in the root directory a scatter plot graph with the sentiment polarity and subjectivity from the scrapped tweets</li>
+<br>
+<img src="examples/sentiment-polarity.png" width="400">
+<br>
+<br>
 <li>Create in the root directory a bar plot graph with the number of positive, negative and neutral tweets</li>
+<br>
+<img src="examples/sentiment-percentage.png" width="400">
+<br>
+<br>
 <li>Create in the root directory a word cloud image with the most used words from the scrapped tweets</li>
+<br>
+<img src="examples/sentiment-wordcloud.png" width="400">
+<br>
+<br>
 </ol>
 
 <br>
