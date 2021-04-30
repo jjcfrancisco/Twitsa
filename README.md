@@ -59,12 +59,13 @@ python3 twitssa.py
 ## Methods
 Twitssa has four main components: the web scrapper, a text transformer to prepare the data, the sentiment analysis and the Graphical User Interphase (GUI).
 
-A web scrapper such as Selenium - the one used in Twitssa - can programmatically parse and extract data from a given website due to its ability to understand HTML syntax. Twitssa, for example, scrapes public tweets when given a word, a language and a location. In this particular case, [Twitter has its own API](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits#:~:text=Standard%20API%20v1.&text=You%20can%20only%20post%20300,id%20endpoint%20during%20that%20period.) to extract its tweets but there are several limitations such as the amount of data that can be extracted. More importantly, it allows users to obtain vast amounts of data very quickly. As Mitchell describes it:
+A web scrapper such as Selenium - the one used in Twitssa - can programmatically parse and extract data from a given website due to its ability to understand HTML syntax. Twitssa, for example, scrapes <b><u>all</b></u> public tweets when given a word, a language and a location. In this particular case, [Twitter has its own API](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits#:~:text=Standard%20API%20v1.&text=You%20can%20only%20post%20300,id%20endpoint%20during%20that%20period.) to extract tweets but there are several limitations such as the amount of data that can be extracted which can be an issue for certain users. Web scraping gives users full control users to obtain vast amounts of data very quickly. As Mitchell (2018) describes it, <cite>"If the only way you access the internet is through a browser, you’re missing out on a huge range of possibilities."</cite>
 
-> <i>"If the only way you access the internet is through a browser, you’re missing out on a
-huge range of possibilities."</i>
+After the data has been scraped, the content must be transformed to be used for further analysis. The scraped data is stored in a Pandas DataFrame and goes through a text cleaning process to remove unnecessary references, symbols and punctuation marks. This is a vital stage as the sentiment analysis library will give erroneous predictions if the data is not formatted correctly.
 
+Once all text has been transformed, TextBlob - the sentiment analysis library - begins analysing the data. A library like TextBlob can be configured to read data give prediction if the text content is either positive, negative or neutral. Because of the sheer amount of data that can be scraped with Twitssa, a sentiment analysis library gives users the ability to programmatically classify text. 
 
+Lastly, the Twitssa app contains code located at the end of the script that creates GUI. The original script did not contain a GUI and had instead a terminal-style user input but a GUI was later added to create a more user-friendly environment for users.
 
 <br>
 
@@ -97,8 +98,10 @@ PermissionError: [Errno 13] Permission denied | Make sure the chrome webdriver i
 <br>
 
 ## References
+
 ["Rate limits: Standard v1.1"](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits#:~:text=Standard%20API%20v1.&text=You%20can%20only%20post%20300,id%20endpoint%20during%20that%20period.), Twitter, viewed 30 April 2021.
 
+Mitchell, R., 2018. Web scraping with Python: Collecting more data from the modern web. " O'Reilly Media, Inc.".
 
 <br>
 
