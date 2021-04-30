@@ -2,13 +2,12 @@
 
 Twitssa is a <b>Twit</b>ter <b>S</b>crapper <b>S</b>entiment <b>A</b>nalysis app that searches a given word on Twitter and gives an in depth sentiment analysis.
 
-The provided Jupyter Notebook allows users to search for specific public tweets, scrape them off Twitter and clean the extracted tweets to use them sentiment analysis.
+Twitssa allows users to search for specific public tweets, scrape them off Twitter and clean the extracted tweets to use them sentiment analysis.
 
 <br>
 
 ![](examples/exampleTwitssa.gif)
 
-<br>
 <br>
 
 * [Getting Started](#getting-started)
@@ -58,6 +57,14 @@ python3 twitssa.py
 <br>
 
 ## Methods
+Twitssa has four main components: the web scrapper, a text transformer to prepare the data, the sentiment analysis and the Graphical User Interphase (GUI).
+
+A web scrapper such as Selenium - the one used in Twitssa - can programmatically parse and extract data from a given website due to its ability to understand HTML syntax. Twitssa, for example, scrapes public tweets when given a word, a language and a location. In this particular case, [Twitter has its own API](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits#:~:text=Standard%20API%20v1.&text=You%20can%20only%20post%20300,id%20endpoint%20during%20that%20period.) to extract its tweets but there are several limitations such as the amount of data that can be extracted. More importantly, it allows users to obtain vast amounts of data very quickly. As Mitchell describes it:
+
+> <i>"If the only way you access the internet is through a browser, you’re missing out on a
+huge range of possibilities."</i>
+
+
 
 <br>
 
@@ -67,6 +74,7 @@ python3 twitssa.py
 
 <img src="https://i.ibb.co/G229k37/after.png" width="400">
 
+<br>
 <br>
 
 After executing the app Twitssa should:
@@ -89,6 +97,8 @@ PermissionError: [Errno 13] Permission denied | Make sure the chrome webdriver i
 <br>
 
 ## References
+["Rate limits: Standard v1.1"](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits#:~:text=Standard%20API%20v1.&text=You%20can%20only%20post%20300,id%20endpoint%20during%20that%20period.), Twitter, viewed 30 April 2021.
+
 
 <br>
 
