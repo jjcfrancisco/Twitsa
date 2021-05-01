@@ -61,27 +61,27 @@ def main(word, lang, lat, lon, km):
             return
         
         #HTML locations
-        comment = card.find_element_by_xpath('.//div[2]/div[2]/div[1]').text
-        responding = card.find_element_by_xpath('.//div[2]/div[2]/div[2]').text
-        text = comment + ' ' + responding
-        reply_cnt = card.find_element_by_xpath('.//div[@data-testid="reply"]').text
-        retweet_cnt = card.find_element_by_xpath('.//div[@data-testid="retweet"]').text
-        like_cnt = card.find_element_by_xpath('.//div[@data-testid="like"]').text
+        msg = card.find_element_by_xpath('.//div[2]/div[2]/div[1]').text
+        replying = card.find_element_by_xpath('.//div[2]/div[2]/div[2]').text
+        text = msg + ' ' + replying
+        reply_num = card.find_element_by_xpath('.//div[@data-testid="reply"]').text
+        retweet_num = card.find_element_by_xpath('.//div[@data-testid="retweet"]').text
+        like_num = card.find_element_by_xpath('.//div[@data-testid="like"]').text
         
         #Get emojis
-        emoji_tags = card.find_elements_by_xpath('.//img[contains(@src, "emoji")]')
-        emoji_list = []
-        for tag in emoji_tags:
-            filename = tag.get_attribute('src')
+        tgEmo = card.find_elements_by_xpath('.//img[contains(@src, "emoji")]')
+        lstEmo = []
+        for tag in tgEmo:
+            filer = tag.get_attribute('src')
             try:
-                emoji = chr(int(re.search(r'svg\/([a-z0-9]+)\.svg', filename).group(1), base=16))
+                emoji = chr(int(re.search(r'svg\/([a-z0-9]+)\.svg', filer).group(1), base=16))
             except AttributeError:
                 continue
             if emoji:
-                emoji_list.append(emoji)
-        emojis = ' '.join(emoji_list)
+                lstEmo.append(emoji)
+        emojis = ' '.join(lstEmo)
         
-        tweet = (username, handle, postdate, text, emojis, reply_cnt, retweet_cnt, like_cnt)
+        tweet = (username, handle, postdate, text, emojis, reply_num, retweet_num, like_num)
         return tweet
 
     #Scroller
