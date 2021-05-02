@@ -57,7 +57,7 @@ After executing the app Twitssa should:
 <img src="https://i.ibb.co/G229k37/after.png" width="400">
 <br>
 <br>
-<li>Create in the root directory a scatter plot graph with the sentiment polarity and subjectivity from the scrapped tweets</li>
+<li>Create in the root directory a scatter plot graph with the sentiment polarity and subjectivity from the scraped tweets</li>
 <br>
 <img src="examples/sentiment-polarity.png" width="400">
 <br>
@@ -67,7 +67,7 @@ After executing the app Twitssa should:
 <img src="examples/sentiment-percentage.png" width="400">
 <br>
 <br>
-<li>Create in the root directory a word cloud image with the most used words from the scrapped tweets</li>
+<li>Create in the root directory a word cloud image with the most used words from the scraped tweets</li>
 <br>
 <img src="examples/sentiment-wordcloud.png" width="400">
 <br>
