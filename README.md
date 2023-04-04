@@ -1,3 +1,6 @@
+# README
+This was a university project for the Python module.
+
 # Twitssa
 
 Twitssa is a <b>Twit</b>ter <b>S</b>crapper <b>S</b>entiment <b>A</b>nalysis app that searches a given word on Twitter and gives an in depth sentiment analysis.
